@@ -1,24 +1,18 @@
 <?php
 
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TacticController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/about-us/{company}', function (string $company) {
-    return view('about-us', [
-        'company' => $company
-    ]);
-})->name('about');
+Route::get('/tactics', [TacticController::class, 'index'])->name('tactics.index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::resource('products', ProductController::class);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
