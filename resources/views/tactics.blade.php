@@ -1,51 +1,25 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tactics</title>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 80%;
-            margin: 2rem auto;
-        }
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
+            {{ __('Tactics Overview') }}
+        </h2>
+    </x-slot>
 
-        th, td {
-            border: 1px solid #ccc;
-            padding: 0.75rem;
-            text-align: left;
-        }
-
-        th {
-            background-color: #f4f4f4;
-        }
-    </style>
-</head>
-<body>
-<h1 style="text-align:center;">All Tactics</h1>
-
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Formation</th>
-        <th>Image</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach($tactics as $tactic)
-        <tr>
-            <td>{{ $tactic->id }}</td>
-            <td>{{ $tactic->title }}</td>
-            <td>{{ $tactic->description }}</td>
-            <td>{{ $tactic->formation }}</td>
-            <td><img src="{{ $tactic->image_url }}" alt="tactic image" width="80"></td>
-        </tr>
-    @endforeach
-    </tbody>
-</table>
-</body>
-</html>
+    <div class="py-6">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-10">
+            <x-data-table :title="'Tactics'" :columns="['ID', 'Title', 'Description', 'Formation', 'Image']">
+                @foreach($tactics as $tactic)
+                    <tr class="hover:bg-gray-50 dark:hover:bg-gray-600">
+                        <td class="p-3 border-b text-gray-800 dark:text-gray-100">{{ $tactic->id }}</td>
+                        <td class="p-3 border-b">{{ $tactic->title }}</td>
+                        <td class="p-3 border-b">{{ $tactic->description }}</td>
+                        <td class="p-3 border-b">{{ $tactic->formation }}</td>
+                        <td class="p-3 border-b">
+                            <img src="{{ $tactic->image_url }}" alt="tactic image" class="w-20 rounded">
+                        </td>
+                    </tr>
+                @endforeach
+            </x-data-table>
+        </div>
+    </div>
+</x-app-layout>

@@ -1,5 +1,11 @@
 ## Changelog:
 
+## 22/10/2025
+
+- Welkomspagina van Laravel aangepast voor toekomstig werk
+- Tactics pagina beginsel van opmaak gegeven d.m.v components
+- Navigatie component aangemaakt die ook actuele pagina weergeeft
+
 ## 16/10/2025
 
 - View, Controller en Model gemaakt voor de tactics pagina, gevuld met dummy data
