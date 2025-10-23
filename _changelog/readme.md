@@ -1,5 +1,11 @@
 ## Changelog:
 
+## 23/10/2025
+
+- Create, Edit en Delete functioneel gemaakt voor de tactics
+- Componenten gemaakt voor Form en CRUD zodat deze herbruikbaar zijn voor later gebruik
+- Kleine aanpassing in de database om image invoer niet verplicht te maken
+
 ## 22/10/2025
 
 - Welkomspagina van Laravel aangepast voor toekomstig werk

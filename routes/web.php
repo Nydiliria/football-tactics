@@ -8,7 +8,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/tactics', [TacticController::class, 'index'])->name('tactics.index');
+Route::resource('tactics', TacticController::class);
+
+Route::get('tactics/{tactic}/edit', [TacticController::class, 'edit'])->name('tactics.edit');
+Route::post('tactics/{tactic}/update', [TacticController::class, 'update'])->name('tactics.update');
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

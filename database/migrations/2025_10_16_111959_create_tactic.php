@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('title');
             $table->string('description');
             $table->string('formation');
-            $table->string('image_url');
+            $table->string('image_url')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +25,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('tactic');
+        Schema::dropIfExists('tactics');
     }
 };
