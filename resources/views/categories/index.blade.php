@@ -18,15 +18,15 @@
             <table class="min-w-full border border-gray-300 rounded-md overflow-hidden">
                 <thead class="bg-gray-100 dark:bg-gray-700">
                 <tr>
-                    <th class="p-2 text-left">Name</th>
-                    <th class="p-2 text-right">Actions</th>
+                    <th class="p-2 text-white text-left">Name</th>
+                    <th class="p-2 text-white text-right">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($categories as $category)
                     <tr class="border-t dark:border-gray-700">
-                        <td class="p-2">{{ $category->name }}</td>
-                        <td class="p-2 text-right space-x-2">
+                        <td class="p-2 text-white">{{ $category->name }}</td>
+                        <td class="p-2 text-white text-right space-x-2">
                             <a href="{{ route('categories.edit', $category) }}" class="text-yellow-600 hover:underline">Edit</a>
 
                             <form action="{{ route('categories.destroy', $category) }}" method="POST" class="inline">

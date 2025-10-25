@@ -4,9 +4,8 @@
 
 - Database aanpassingen voor admin role boolean en diepere validatie
 - Database aanpassingen gemaakt voor categorieën
-- Filter systeem op tactieken toegevoegd (lijkt te werken)
-- Categorieën met CRUD toegevoegd maar helaasn nog niet 100% werkend gekregen
 - Navigatie naar categorieën toegevoegd
+- Categorieën en filter systeem werkend gekregen
 
 ## 23/10/2025
 

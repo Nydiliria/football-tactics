@@ -11,6 +11,7 @@ class Tactic extends Model
         'description',
         'formation',
         'image_url',
+        'category_id'
     ];
 
     public function category()
