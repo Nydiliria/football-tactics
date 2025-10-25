@@ -1,5 +1,13 @@
 ## Changelog:
 
+## 25/10/2025
+
+- Database aanpassingen voor admin role boolean en diepere validatie
+- Database aanpassingen gemaakt voor categorieën
+- Filter systeem op tactieken toegevoegd (lijkt te werken)
+- Categorieën met CRUD toegevoegd maar helaasn nog niet 100% werkend gekregen
+- Navigatie naar categorieën toegevoegd
+
 ## 23/10/2025
 
 - Create, Edit en Delete functioneel gemaakt voor de tactics

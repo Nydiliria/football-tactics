@@ -1,8 +1,22 @@
-@props(['title', 'description' => null, 'image' => null, 'formation' => null, 'editUrl' => null, 'showUrl' => null, 'deleteUrl' => null])
+@props([
+    'title',
+    'description' => null,
+    'image' => null,
+    'formation' => null,
+    'category' => null,
+    'editUrl' => null,
+    'showUrl' => null,
+    'deleteUrl' => null,
+])
 
 <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition">
+
     @if($image)
         <img src="{{ $image }}" alt="{{ $title }}" class="w-full h-48 object-cover">
+    @else
+        <div class="w-full h-48 bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-500">
+            No image
+        </div>
     @endif
 
     <div class="p-4">
@@ -16,11 +30,15 @@
             </p>
         @endif
 
-        @if($formation)
-            <p class="text-xs mt-3 text-gray-500 dark:text-gray-400">
-                Formation: <span class="font-medium">{{ $formation }}</span>
-            </p>
-        @endif
+        <div class="mt-3 text-xs text-gray-500 dark:text-gray-400 space-y-1">
+            @if($formation)
+                <p>Formation: <span class="font-medium">{{ $formation }}</span></p>
+            @endif
+
+            @if($category)
+                <p>Category: <span class="font-medium text-gray-700 dark:text-gray-200">{{ $category }}</span></p>
+            @endif
+        </div>
 
         <div class="mt-4 flex justify-between items-center">
             @if($showUrl)

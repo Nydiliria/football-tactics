@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TacticController;
 use Illuminate\Support\Facades\Route;
@@ -13,7 +14,7 @@ Route::resource('tactics', TacticController::class);
 Route::get('tactics/{tactic}/edit', [TacticController::class, 'edit'])->name('tactics.edit');
 Route::post('tactics/{tactic}/update', [TacticController::class, 'update'])->name('tactics.update');
 
-
+Route::resource('categories', CategoryController::class);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
