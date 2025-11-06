@@ -9,21 +9,34 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('tactics', TacticController::class);
+Route::get('tactics', [TacticController::class, 'index'])->name('tactics.index');
+Route::get('tactics/{tactic}', [TacticController::class, 'show'])->name('tactics.show');
 
-Route::get('tactics/{tactic}/edit', [TacticController::class, 'edit'])->name('tactics.edit');
-Route::post('tactics/{tactic}/update', [TacticController::class, 'update'])->name('tactics.update');
 
-Route::resource('categories', CategoryController::class);
+Route::middleware(['auth'])->group(function () {
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('tactics/create', [TacticController::class, 'create'])->name('tactics.create');
+    Route::post('tactics', [TacticController::class, 'store'])->name('tactics.store');
+    Route::get('tactics/{tactic}/edit', [TacticController::class, 'edit'])->name('tactics.edit');
+    Route::patch('tactics/{tactic}', [TacticController::class, 'update'])->name('tactics.update');
+    Route::delete('tactics/{tactic}', [TacticController::class, 'destroy'])->name('tactics.destroy');
+});
+
+// Admin-only routes
+Route::middleware(['auth', 'admin'])->group(function () {
+
+    Route::resource('categories', CategoryController::class);
+
+    Route::patch('tactics/{tactic}/approve', [TacticController::class, 'approve'])->name('tactics.approve');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
+// Auth routes
 require __DIR__ . '/auth.php';

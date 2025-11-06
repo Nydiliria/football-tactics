@@ -1,9 +1,15 @@
 @php
     $links = [
-        ['label' => 'Home', 'route' => '/'],
+        ['label' => 'Home', 'route' => route('home')],
         ['label' => 'Tactics', 'route' => route('tactics.index')],
-        ['label' => 'Add Tactic', 'route' => route('tactics.create')],
     ];
+
+    // Alleen tonen als ingelogd
+    if (auth()->check()) {
+        $links[] = ['label' => 'Add Tactic', 'route' => route('tactics.create')];
+    } else {
+        $links[] = ['label' => 'Register', 'route' => route('register')];
+    }
 @endphp
 
 <nav class="bg-gray-800 text-white">
@@ -13,7 +19,9 @@
                 @foreach ($links as $link)
                     @php
                         // Controleer of de huidige pagina deze link is
-                        $isActive = request()->is(trim(parse_url($link['route'], PHP_URL_PATH), '/'));
+                        $currentPath = trim(request()->path(), '/');
+                        $linkPath = trim(parse_url($link['route'], PHP_URL_PATH), '/');
+                        $isActive = $currentPath === $linkPath;
                     @endphp
 
                     <a href="{{ $link['route'] }}"

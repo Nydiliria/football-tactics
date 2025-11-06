@@ -1,5 +1,13 @@
 ## Changelog:
 
+## 06/11/2025
+
+- Admin/User functies opgedeeld
+- Userrechten aangepast (user kan alleen eigen tactieken aanpassen etc.)
+- Niet ingelogde gebruikers alleen view rechten gegeven
+- Admin rechten gegeven aan categories, verder uitbreiding volgt nog.
+- Validatie toegevoegd aan register en login
+
 ## 25/10/2025
 
 - Database aanpassingen voor admin role boolean en diepere validatie

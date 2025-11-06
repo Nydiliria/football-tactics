@@ -17,8 +17,11 @@ return new class extends Migration {
             $table->string('formation');
             $table->string('image_url')->nullable();
             $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->boolean('is_approved')->default(false);
             $table->timestamps();
         });
+
     }
 
     /**
