@@ -35,6 +35,12 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('categories', CategoryController::class);
 });
 
+// Additional Validation
+Route::middleware(['auth', 'enough_logins'])->group(function () {
+    Route::get('tactics/create', [TacticController::class, 'create'])->name('tactics.create');
+    Route::post('tactics', [TacticController::class, 'store'])->name('tactics.store');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

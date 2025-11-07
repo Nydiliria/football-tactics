@@ -5,6 +5,7 @@
 - Admin kan nu tactieken actief of non actief maken
 - Userrechten toegepast
 - Bugfixing bij routes en userrechten
+- Diepere validatie toegevoegd, 3 logins nodig om tactiek te mogen maken
 
 ## 06/11/2025
 
