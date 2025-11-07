@@ -5,7 +5,10 @@
     'method' => 'POST'
 ])
 
-<form method="{{ strtoupper($method) === 'GET' ? 'GET' : 'POST' }}" action="{{ $action }}" class="space-y-4">
+<form method="{{ strtoupper($method) === 'GET' ? 'GET' : 'POST' }}"
+      action="{{ $action }}"
+      class="space-y-4"
+      enctype="multipart/form-data"> {{-- Belangrijk voor file uploads --}}
     @csrf
 
     @if(!in_array(strtoupper($method), ['GET', 'POST']))
@@ -40,6 +43,14 @@
                         </option>
                     @endforeach
                 </select>
+
+            @elseif(($field['type'] ?? '') === 'file')
+                <input
+                    type="file"
+                    id="{{ $name }}"
+                    name="{{ $name }}"
+                    class="w-full border-gray-300 rounded-md dark:bg-gray-700 dark:text-gray-100"
+                >
 
             @else
                 <input

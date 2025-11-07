@@ -11,9 +11,10 @@ class Tactic extends Model
         'description',
         'formation',
         'image_url',
-        'category_id'
+        'category_id',
+        'user_id',
+        'is_approved'
     ];
-
     public function category()
     {
         return $this->belongsTo(Category::class);

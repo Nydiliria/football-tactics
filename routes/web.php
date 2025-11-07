@@ -10,8 +10,6 @@ Route::get('/', function () {
 });
 
 Route::get('tactics', [TacticController::class, 'index'])->name('tactics.index');
-Route::get('tactics/{tactic}', [TacticController::class, 'show'])->name('tactics.show');
-
 
 Route::middleware(['auth'])->group(function () {
 
@@ -26,12 +24,15 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('tactics/{tactic}', [TacticController::class, 'destroy'])->name('tactics.destroy');
 });
 
+Route::get('tactics/{tactic}', [TacticController::class, 'show'])->name('tactics.show');
+
 // Admin-only routes
 Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('admin/tactics', [TacticController::class, 'adminIndex'])->name('admin.tactics.index');
+    Route::post('admin/tactics/{tactic}/approve', [TacticController::class, 'approve'])
+        ->name('admin.tactics.approve');
 
     Route::resource('categories', CategoryController::class);
-
-    Route::patch('tactics/{tactic}/approve', [TacticController::class, 'approve'])->name('tactics.approve');
 });
 
 Route::get('/dashboard', function () {

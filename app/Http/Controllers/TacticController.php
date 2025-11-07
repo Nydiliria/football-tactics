@@ -25,17 +25,27 @@ class TacticController extends Controller
     {
         $query = Tactic::with('category');
 
-        // Niet-admins zien alleen goedgekeurde tactics
         if (!auth()->check() || !auth()->user()->is_admin) {
-            $query->where('is_approved', true);
+            $userId = auth()->id();
+
+            $query->where(function ($q) use ($userId) {
+                $q->where('is_approved', true);
+
+                if ($userId) {
+                    $q->orWhere('user_id', $userId);
+                }
+            });
         }
 
+        // Filter op categorie als aanwezig
         if ($request->filled('category')) {
             $query->where('category_id', $request->category);
         }
 
         $tactics = $query->latest()->get();
         $categories = Category::all();
+
+        // dd($tactics->toArray());
 
         return view('tactics.tactics', compact('tactics', 'categories'));
     }
@@ -67,6 +77,10 @@ class TacticController extends Controller
      */
     public function store(Request $request)
     {
+        if (!auth()->check()) {
+            abort(403, 'Je moet ingelogd zijn om een tactic te maken.');
+        }
+
         $data = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -178,6 +192,20 @@ class TacticController extends Controller
     {
         $tactic->update(['is_approved' => !$tactic->is_approved]);
 
-        return redirect()->route('tactics.index')->with('success', 'Tacticstatus bijgewerkt.');
+        return redirect()->back()->with('success', 'Tactic status bijgewerkt.');
+    }
+
+    public function adminIndex(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    {
+        $query = Tactic::with(['category', 'user']);
+
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
+
+        $tactics = $query->latest()->get();
+        $categories = Category::all();
+
+        return view('tactics.admin', compact('tactics', 'categories'));
     }
 }

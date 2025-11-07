@@ -24,6 +24,14 @@
                             {{ __('Dashboard') }}
                         </x-nav-link>
                     @endauth
+                    @auth
+                        @if(auth()->user()->is_admin)
+                            <x-nav-link :href="route('admin.tactics.index')"
+                                        :active="request()->routeIs('admin.tactics.index')">
+                                {{ __('Approve Tactics') }}
+                            </x-nav-link>
+                        @endif
+                    @endauth
                 </div>
             </div>
 

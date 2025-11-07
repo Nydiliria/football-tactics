@@ -58,6 +58,13 @@
             @if($tactics->count() > 0)
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach($tactics as $tactic)
+                        @php
+                            $editUrl = auth()->check() && (auth()->id() === $tactic->user_id || auth()->user()->is_admin)
+                                ? route('tactics.edit', $tactic->id)
+                                : null;
+
+                            $deleteUrl = $editUrl ? route('tactics.destroy', $tactic->id) : null;
+                        @endphp
                         <x-card
                             :title="$tactic->title"
                             :description="$tactic->description"
@@ -65,10 +72,8 @@
                             :formation="$tactic->formation"
                             :category="$tactic->category->name ?? 'Uncategorized'"
                             :show-url="route('tactics.show', $tactic->id)"
-                            @auth
-                                :edit-url="route('tactics.edit', $tactic->id)"
-                            :delete-url="route('tactics.destroy', $tactic->id)"
-                            @endauth
+                            :edit-url="$editUrl"
+                            :delete-url="$deleteUrl"
                         />
                     @endforeach
                 </div>

@@ -1,5 +1,11 @@
 ## Changelog:
 
+## 07/11/2025
+
+- Admin kan nu tactieken actief of non actief maken
+- Userrechten toegepast
+- Bugfixing bij routes en userrechten
+
 ## 06/11/2025
 
 - Admin/User functies opgedeeld
