@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Tactic;
+use App\Models\Login;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -78,7 +79,15 @@ class TacticController extends Controller
     public function store(Request $request)
     {
         if (!auth()->check()) {
-            abort(403, 'Je moet ingelogd zijn om een tactic te maken.');
+            abort(403, 'Je moet ingelogd zijn om een tactiek te maken.');
+        }
+
+        $loginCount = Login::where('user_id', auth()->id())->count();
+
+        if ($loginCount < 3) {
+            return redirect()
+                ->route('tactics.index')
+                ->with('error', 'Je moet minimaal 3 keer ingelogd zijn om een tactic aan te maken. (Huidige aantal: ' . $loginCount . ')');
         }
 
         $data = $request->validate([
@@ -105,7 +114,8 @@ class TacticController extends Controller
      */
     public function show(Tactic $tactic)
     {
-        if (!$tactic->is_approved && (!auth()->check() || !auth()->user()->is_admin)) {
+        if (!$tactic->is_approved && (!auth()->check() ||
+                (!auth()->user()->is_admin && auth()->id() !== $tactic->user_id))) {
             abort(403, 'Je mag deze tactic niet bekijken.');
         }
 

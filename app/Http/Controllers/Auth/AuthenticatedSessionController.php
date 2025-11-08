@@ -8,6 +8,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Str;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -24,11 +26,12 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        $this->ensureIsNotRateLimited($request);
+
         $request->authenticate();
         $request->session()->regenerate();
 
-        $user = auth()->user();
-        $user->increment('login_count');
+        RateLimiter::clear($this->throttleKey($request));
 
         return redirect()->intended(route('dashboard', absolute: false));
     }
@@ -45,5 +48,20 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    protected function ensureIsNotRateLimited(LoginRequest $request): void
+    {
+        $key = $this->throttleKey($request);
+
+        if (RateLimiter::tooManyAttempts($key, 3)) {
+            $seconds = RateLimiter::availableIn($key);
+            abort(429, "Too many login attempts. Please try again in {$seconds} seconds.");
+        }
+    }
+
+    protected function throttleKey(LoginRequest $request): string
+    {
+        return Str::lower($request->input('email')) . '|' . $request->ip();
     }
 }

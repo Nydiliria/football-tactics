@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Login;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,9 +14,12 @@ class UserLoginCheck
      *
      * @param \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response) $next
      */
+
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user()->login_count < 3) {
+        $loginCount = Login::where('user_id', auth()->id())->count();
+
+        if ($loginCount < 3) {
             return redirect()->route('dashboard')
                 ->with('error', 'You need to log in at least 3 times before creating a tactic');
         }

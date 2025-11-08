@@ -1,5 +1,13 @@
 ## Changelog:
 
+## 08/11/2025
+
+- OWASP top 10 tests gedaan en bugfixes hierop uitgevoerd
+- Diepere validatie aangepast, gaat nu via Eloquent
+- Detailpagina toegevoegd aan tactieken waar de description te zien is
+- Categories navigatie onzichtbaar gemaakt voor non-admins aangezien het een 403 gaf voor deze gebruikers.
+- Laatste taalaanpassingen gedaan
+
 ## 07/11/2025
 
 - Admin kan nu tactieken actief of non actief maken

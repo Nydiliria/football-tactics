@@ -32,17 +32,20 @@
 
             {{-- Login count section --}}
             @auth
+                @php
+                    $loginCount = \App\Models\Login::where('user_id', auth()->id())->count();
+                @endphp
+
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         <p>You have logged in
-                            <strong>{{ auth()->user()->login_count }}</strong>
-                            {{ Str::plural('time', auth()->user()->login_count) }}.
+                            <strong>{{ $loginCount }}</strong>
+                            {{ \Illuminate\Support\Str::plural('time', $loginCount) }}.
                         </p>
 
-                        @if (auth()->user()->login_count < 3)
+                        @if ($loginCount < 3)
                             <p class="text-red-500 mt-2">
-                                You need {{ 3 - auth()->user()->login_count }} more login(s) before you can create
-                                tactics.
+                                You need {{ 3 - $loginCount }} more login(s) before you can create tactics.
                             </p>
                         @else
                             <p class="text-green-500 mt-2">
@@ -52,6 +55,7 @@
                     </div>
                 </div>
             @endauth
+
         </div>
     </div>
 </x-app-layout>

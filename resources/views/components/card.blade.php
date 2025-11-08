@@ -11,6 +11,7 @@
 
 <div class="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition">
 
+    {{-- Afbeelding --}}
     @if($image)
         <img src="{{ $image }}" alt="{{ $title }}" class="w-full h-48 object-cover">
     @else
@@ -41,7 +42,8 @@
         </div>
 
         <div class="mt-4 flex justify-between items-center">
-            @if($showUrl)
+
+        @if($showUrl)
                 <a href="{{ $showUrl }}"
                    class="text-sm font-medium text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
                     View

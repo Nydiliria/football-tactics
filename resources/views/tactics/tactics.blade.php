@@ -28,11 +28,10 @@
     <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-            <!-- Filter formulier -->
             <form method="GET" action="{{ route('tactics.index') }}" class="mb-6 flex gap-3 items-center">
                 <select name="category"
                         class="rounded-md border-gray-300 focus:ring-blue-500 focus:border-blue-500">
-                    <option value="">Alle categorieën</option>
+                    <option value="">All Categories</option>
                     @foreach($categories as $category)
                         <option
                             value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
@@ -54,7 +53,6 @@
                 @endif
             </form>
 
-            <!-- Tactics lijst -->
             @if($tactics->count() > 0)
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach($tactics as $tactic)
@@ -67,7 +65,6 @@
                         @endphp
                         <x-card
                             :title="$tactic->title"
-                            :description="$tactic->description"
                             :image="$tactic->image_url ? Storage::url($tactic->image_url) : null"
                             :formation="$tactic->formation"
                             :category="$tactic->category->name ?? 'Uncategorized'"

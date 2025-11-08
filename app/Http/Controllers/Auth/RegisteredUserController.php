@@ -48,7 +48,6 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         Auth::login($user);
-        $user->increment('login_count');
 
         return redirect(route('dashboard'));
     }
