@@ -20,7 +20,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('tactics/create', [TacticController::class, 'create'])->name('tactics.create');
     Route::post('tactics', [TacticController::class, 'store'])->name('tactics.store');
     Route::get('tactics/{tactic}/edit', [TacticController::class, 'edit'])->name('tactics.edit');
-    Route::patch('tactics/{tactic}', [TacticController::class, 'update'])->name('tactics.update');
+    Route::put('tactics/{tactic}', [TacticController::class, 'update'])->name('tactics.update');
     Route::delete('tactics/{tactic}', [TacticController::class, 'destroy'])->name('tactics.destroy');
 });
 

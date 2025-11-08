@@ -7,6 +7,7 @@
 - Detailpagina toegevoegd aan tactieken waar de description te zien is
 - Categories navigatie onzichtbaar gemaakt voor non-admins aangezien het een 403 gaf voor deze gebruikers.
 - Laatste taalaanpassingen gedaan
+- Zoekfunctie toegevoegd
 
 ## 07/11/2025
 

@@ -43,6 +43,16 @@ class TacticController extends Controller
             $query->where('category_id', $request->category);
         }
 
+        // Zoekfunctie
+        if ($request->filled('search')) {
+            $search = $request->search;
+
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%');
+            });
+        }
+
         $tactics = $query->latest()->get();
         $categories = Category::all();
 

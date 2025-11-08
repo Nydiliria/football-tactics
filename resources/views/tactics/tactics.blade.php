@@ -40,6 +40,14 @@
                     @endforeach
                 </select>
 
+                <div class="flex-1">
+                    <label for="search" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Search by
+                        Title</label>
+                    <input type="text" name="search" id="search" value="{{ request('search') }}"
+                           placeholder="Search tactics..."
+                           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                </div>
+
                 <button type="submit"
                         class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
                     Filter
